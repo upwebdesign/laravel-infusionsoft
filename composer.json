@@ -12,15 +12,14 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/console": "~5.0",
-        "illuminate/support": "~5.0"
+        "illuminate/support": "~5.0",
+        "infusionsoft/php-sdk": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.1",
-        "infusionsoft/php-sdk": "dev-master"
+        "phpunit/phpunit": "~4.1"
     },
     "autoload": {
         "classmap": [
-            "src/commands"
         ],
         "psr-4": {
             "Upwebdesign\\Infusionsoft\\": "src/Upwebdesign/"
