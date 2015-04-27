@@ -32,4 +32,4 @@ Since this is not a Packagist Package (Yet) add this repository to your composer
 
 ## Configuration
 
-Just use php artisan vendor:publish and a entrust.php file will be created in your app/config directory.
+Just use `php artisan vendor:publish` and a `infusionsoft.php` file will be created in your app/config directory.
