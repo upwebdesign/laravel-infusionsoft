@@ -21,7 +21,7 @@
         "classmap": [
         ],
         "psr-4": {
-            "Upwebdesign\\Infusionsoft\\": "src/Upwebdesign/"
+            "Upwebdesign\\Infusionsoft\\": "src/Infusionsoft/"
         }
     },
     "minimum-stability": "dev"
