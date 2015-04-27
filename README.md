@@ -33,3 +33,7 @@ Since this is not a Packagist Package (Yet) add this repository to your composer
 ## Configuration
 
 Just use `php artisan vendor:publish` and a `infusionsoft.php` file will be created in your app/config directory.
+
+## License
+
+Upwebdesign/Infusionsoft & Infusionsoft SDK is free software distributed under the terms of the MIT license.
