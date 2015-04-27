@@ -14,7 +14,7 @@ return array(
     | You may log into Infusionsoft to obtain your application name.
     |
     */
-    'appName' => 'appName',
+    'appName' => env('INFUSIONSOFT_APP'),
     /*
     |--------------------------------------------------------------------------
     | Your API Key, obtained from Infusionsoft
@@ -23,5 +23,5 @@ return array(
     | You may log into Infusionsoft to retreive this key.
     |
     */
-    'apiKey' => 'xxxxxxxxxxxxxxxxx',
+    'apiKey' => env('INFUSIONSOFT_KEY'),
 );
