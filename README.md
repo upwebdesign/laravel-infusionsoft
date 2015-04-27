@@ -36,6 +36,9 @@ Just use `php artisan vendor:publish` and a `infusionsoft.php` file will be crea
 
 This package uses .env to store your Infusionsoft app name and API key.
 
+    INFUSIONSOFT_APP=appName
+    INFUSIONSOFT_KEY=xxxxxxxxxxxxxxxxxxxxxxx
+
 ## License
 
 Upwebdesign/Infusionsoft & Infusionsoft SDK is free software distributed under the terms of the MIT license.
