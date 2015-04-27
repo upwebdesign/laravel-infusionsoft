@@ -34,6 +34,8 @@ Since this is not a Packagist Package (Yet) add this repository to your composer
 
 Just use `php artisan vendor:publish` and a `infusionsoft.php` file will be created in your app/config directory.
 
+This package uses .env to store your Infusionsoft app name and API key.
+
 ## License
 
 Upwebdesign/Infusionsoft & Infusionsoft SDK is free software distributed under the terms of the MIT license.
