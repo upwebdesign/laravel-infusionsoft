@@ -43,7 +43,7 @@ class Infusionsoft extends Inf
             $this->setToken(new Token(unserialize(file_get_contents($token_path))));
         } else if (empty($this->authorization_code)) {
             $this->setRedirectUri('http://digitalexpertsacademy.app');
-            dd(sprintf('You must authorize your application here: %s', $infusionsoft->getAuthorizationUrl()));
+            dd(sprintf('You must authorize your application here: %s', $this->getAuthorizationUrl()));
         } else {
             $this->requestAccessToken(env('INFUSIONSOFT_CODE'));
         }
