@@ -39,7 +39,6 @@ class InfusionsoftServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->package('upwebdesign/laravel-infusionsoft');
         $this->registerInfusionsoft();
         // $this->registerCommands();
         $this->mergeConfig();
