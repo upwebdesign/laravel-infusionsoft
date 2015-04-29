@@ -9,6 +9,7 @@
  */
 
 use \Infusionsoft\Infusionsoft as Inf;
+use \Infusionsoft\Token;
 use \Config;
 
 class Infusionsoft extends Inf
