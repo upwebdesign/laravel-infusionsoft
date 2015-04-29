@@ -1,5 +1,7 @@
 # Laravel/Infusionsoft (Laravel 5 Package)
 
+This package is not in working order, please create your own branch if you would like to attempt a crack at it.
+
 Laravel 5 Port of the Infusionsoft SDK
 
 ## Installation

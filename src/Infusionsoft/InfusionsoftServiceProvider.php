@@ -39,41 +39,15 @@ class InfusionsoftServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerInfusionsoft();
-        // $this->registerCommands();
-        $this->mergeConfig();
-    }
-    /**
-     * Register the application bindings.
-     *
-     * @return void
-     */
-    private function registerInfusionsoft()
-    {
         $this->app->singleton('infusionsoft', function ($app) {
             return new Infusionsoft($app);
         });
-    }
-    /**
-     * Register the artisan commands.
-     *
-     * @return void
-     */
-    // private function registerCommands()
-    // {
-    //     //
-    // }
-    /**
-     * Merges user's and infusionsoft's configs.
-     *
-     * @return void
-     */
-    private function mergeConfig()
-    {
+
         $this->mergeConfigFrom(
             __DIR__.'/../config/config.php', 'infusionsoft'
         );
     }
+
     /**
      * Get the services provided.
      *
