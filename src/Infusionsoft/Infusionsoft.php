@@ -1,8 +1,8 @@
 <?php namespace Upwebdesign\Infusionsoft;
 
 /**
- * This class is the main entry point of entrust. Usually this the interaction
- * with this class will be done through the Entrust Facade
+ * This class is the main entry point of Infusionsoft. Usually this the interaction
+ * with this class will be done through the Infusionsoft Facade
  *
  * @license MIT
  * @package Upwebdesign\Infusionsoft
@@ -35,6 +35,7 @@ class Infusionsoft extends Inf
      */
     public function __construct()
     {
+        dd('here');
         $this->setClientId(env('INFUSIONSOFT_ID'))
             ->setClientSecret(env('INFUSIONSOFT_SECRET'))
             ->setUsername(env('INFUSIONSOFT_USERNAME'))

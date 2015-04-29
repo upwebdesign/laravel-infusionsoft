@@ -39,6 +39,7 @@ class InfusionsoftServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->package('upwebdesign/laravel-infusionsoft');
         $this->registerInfusionsoft();
         // $this->registerCommands();
         $this->mergeConfig();
@@ -52,7 +53,7 @@ class InfusionsoftServiceProvider extends ServiceProvider
     {
         $this->app->singleton('infusionsoft', function() {
             $infusionsoft = new \Upwebdesign\Infusionsoft\Infusionsoft;
-            $infusionsoft->refreshAccessToken();
+            $infusionsoft->requestAccessToken();
             return $infusionsoft;
         });
         // $this->app->bind('infusionsoft', function ($app) {
