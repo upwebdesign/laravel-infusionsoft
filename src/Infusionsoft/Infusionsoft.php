@@ -35,17 +35,17 @@ class Infusionsoft extends Inf
      */
     public function __construct()
     {
-        $this->setAuthorizationCode(env('INFUSIONSOFT_CODE'));
-        $this->setClientId(env('INFUSIONSOFT_ID'));
-        $this->setClientSecret(env('INFUSIONSOFT_SECRET'));
+        $this->setAuthorizationCode(Config::get('infusionsoft.auth_code'));
+        $this->setClientId(Config::get('infusionsoft.client_id'));
+        $this->setClientSecret(Config::get('infusionsoft.client_secret'));
         $token_path = sprintf('%s/infusionsoft.token', storage_path());
         if (file_exists($token_path)) {
             $this->setToken(new Token(unserialize(file_get_contents($token_path))));
         } else if (empty($this->authorization_code)) {
-            $this->setRedirectUri('http://digitalexpertsacademy.app');
+            $this->setRedirectUri(Config::get('infusionsoft.redirect_uri'));
             dd(sprintf('You must authorize your application here: %s', $this->getAuthorizationUrl()));
         } else {
-            $this->requestAccessToken(env('INFUSIONSOFT_CODE'));
+            $this->requestAccessToken($this->authorization_code);
         }
         $token = $this->getToken();
         if ($token->getEndOfLife() < time()) {

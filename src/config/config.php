@@ -14,7 +14,7 @@ return array(
     | You may log into Infusionsoft to obtain your application name.
     |
     */
-    'id' => env('INFUSIONSOFT_ID'),
+    'client_id' => env('INFUSIONSOFT_ID'),
     /*
     |--------------------------------------------------------------------------
     | Your API Key, obtained from Infusionsoft
@@ -23,7 +23,7 @@ return array(
     | You may log into Infusionsoft to retreive this key.
     |
     */
-    'secret' => env('INFUSIONSOFT_SECRET'),
+    'client_secret' => env('INFUSIONSOFT_SECRET'),
     /*
     |--------------------------------------------------------------------------
     | Your API Key, obtained from Infusionsoft
@@ -32,7 +32,7 @@ return array(
     | You may log into Infusionsoft to retreive this key.
     |
     */
-    'code' => env('INFUSIONSOFT_CODE'),
+    'auth_code' => env('INFUSIONSOFT_AUTHORIZATION_CODE'),
     /*
     |--------------------------------------------------------------------------
     | Your API Key, obtained from Infusionsoft
@@ -41,23 +41,5 @@ return array(
     | You may log into Infusionsoft to retreive this key.
     |
     */
-    'token' => env('INFUSIONSOFT_TOKEN'),
-    /*
-    |--------------------------------------------------------------------------
-    | Your API Key, obtained from Infusionsoft
-    |--------------------------------------------------------------------------
-    |
-    | You may log into Infusionsoft to retreive this key.
-    |
-    */
-    'username' => env('INFUSIONSOFT_USERNAME'),
-    /*
-    |--------------------------------------------------------------------------
-    | Your API Key, obtained from Infusionsoft
-    |--------------------------------------------------------------------------
-    |
-    | You may log into Infusionsoft to retreive this key.
-    |
-    */
-    'password' => env('INFUSIONSOFT_PASSWORD'),
+    'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI')
 );
