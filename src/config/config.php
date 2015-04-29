@@ -32,6 +32,24 @@ return array(
     | You may log into Infusionsoft to retreive this key.
     |
     */
+    'code' => env('INFUSIONSOFT_CODE'),
+    /*
+    |--------------------------------------------------------------------------
+    | Your API Key, obtained from Infusionsoft
+    |--------------------------------------------------------------------------
+    |
+    | You may log into Infusionsoft to retreive this key.
+    |
+    */
+    'token' => env('INFUSIONSOFT_TOKEN'),
+    /*
+    |--------------------------------------------------------------------------
+    | Your API Key, obtained from Infusionsoft
+    |--------------------------------------------------------------------------
+    |
+    | You may log into Infusionsoft to retreive this key.
+    |
+    */
     'username' => env('INFUSIONSOFT_USERNAME'),
     /*
     |--------------------------------------------------------------------------

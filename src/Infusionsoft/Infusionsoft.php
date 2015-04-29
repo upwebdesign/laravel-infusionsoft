@@ -47,7 +47,8 @@ class Infusionsoft extends Inf
             ->setClientSecret(env('INFUSIONSOFT_SECRET'));
             // ->setUsername(env('INFUSIONSOFT_USERNAME'))
             // ->setPassword(env('INFUSIONSOFT_PASSWORD'));
-        $this->requestAccessToken(env('INFUSIONSOFT_CODE'));
+        // $this->requestAccessToken(env('INFUSIONSOFT_CODE'));
+        $this->setToken(new Token(['access_token' => env('INFUSIONSOFT_TOKEN')]));
     }
 
     /**
