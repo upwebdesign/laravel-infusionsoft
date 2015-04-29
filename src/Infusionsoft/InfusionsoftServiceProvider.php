@@ -40,7 +40,7 @@ class InfusionsoftServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerInfusionsoft();
-        $this->registerCommands();
+        // $this->registerCommands();
         $this->mergeConfig();
     }
     /**
@@ -50,19 +50,24 @@ class InfusionsoftServiceProvider extends ServiceProvider
      */
     private function registerInfusionsoft()
     {
-        $this->app->bind('infusionsoft', function ($app) {
-            return new Infusionsoft($app);
+        $this->app->singleton('infusionsoft', function() {
+            $infusionsoft = new \Upwebdesign\Infusionsoft();
+            $infusionsoft->refreshAccessToken();
+            return $infusionsoft;
         });
+        // $this->app->bind('infusionsoft', function ($app) {
+        //     return new Infusionsoft($app);
+        // });
     }
     /**
      * Register the artisan commands.
      *
      * @return void
      */
-    private function registerCommands()
-    {
-        //
-    }
+    // private function registerCommands()
+    // {
+    //     //
+    // }
     /**
      * Merges user's and infusionsoft's configs.
      *

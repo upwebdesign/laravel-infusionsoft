@@ -8,30 +8,36 @@
  * @package Upwebdesign\Infusionsoft
  */
 
-use Infusionsoft\Infusionsoft as Inf;
 use \Config;
 
-class Infusionsoft
+class Infusionsoft extends \Infusionsoft\Infusionsoft
 {
     /**
-     * Laravel application
+     * Infusionsoft user username
      *
-     * @var \Illuminate\Foundation\Application
+     * @var string
      */
-    public $app;
+    protected $username;
+
+    /**
+     * Infusionsoft user password
+     *
+     * @var string
+     */
+
+    protected $password;
 
     /**
      * Create a new confide instance.
      *
-     * @param \Illuminate\Foundation\Application $app
-     *
      * @return void
      */
-    public function __construct($app)
+    public function __construct()
     {
-        $this->app = $app;
-        $appName =  Config::get('infusionsoft::appName');
-        $apiKey =  Config::get('infusionsoft::apiKey');
+        $this->setClientId(env('INFUSIONSOFT_ID'))
+            ->setClientSecret(env('INFUSIONSOFT_SECRET'))
+            ->setUsername(env('INFUSIONSOFT_USERNAME'))
+            ->setPassword(env('INFUSIONSOFT_PASSWORD'));
     }
 
     /**
@@ -41,11 +47,40 @@ class Infusionsoft
      *
      * @return bool
      */
-    public function can($permission, $requireAll = false)
+    public function requestAccessToken($code=null)
     {
-        if ($user = $this->user()) {
-            return $user->can($permission, $requireAll);
+        if (is_null($code)) {
+            $params = array(
+                'client_id'  => $this->clientId,
+                'username'   => $this->username,
+                'password'   => $this->password,
+                'grant_type' => $grand_type
+            );
+            $client = $this->getHttpClient();
+            $tokenInfo = $client->request($this->tokenUri, $params, array(), 'POST');
+            $this->setToken(new Token($tokenInfo));
+            return $this->getToken();
         }
-        return false;
+        return parent::requestAccessToken($code);
+    }
+
+    /**
+     * @param string $username
+     * @return string
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @param string $password
+     * @return string
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
     }
 }
