@@ -14,6 +14,13 @@ use \Config;
 class Infusionsoft extends Inf
 {
     /**
+     * Laravel app
+     *
+     * @var object
+     */
+    protected $app;
+
+    /**
      * Infusionsoft user username
      *
      * @var string
@@ -33,8 +40,9 @@ class Infusionsoft extends Inf
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($app)
     {
+        $this->app = $app;
         $this->setClientId(env('INFUSIONSOFT_ID'))
             ->setClientSecret(env('INFUSIONSOFT_SECRET'))
             ->setUsername(env('INFUSIONSOFT_USERNAME'))
@@ -56,7 +64,7 @@ class Infusionsoft extends Inf
                 'client_id'  => $this->clientId,
                 'username'   => $this->username,
                 'password'   => $this->password,
-                'grant_type' => $grand_type
+                'grant_type' => 'password'
             );
             $client = $this->getHttpClient();
             $tokenInfo = $client->request($this->tokenUri, $params, array(), 'POST');

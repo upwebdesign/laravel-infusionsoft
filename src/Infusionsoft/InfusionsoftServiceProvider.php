@@ -50,8 +50,8 @@ class InfusionsoftServiceProvider extends ServiceProvider
      */
     private function registerInfusionsoft()
     {
-        $this->app->bind('infusionsoft', function () {
-            return new Infusionsoft;
+        $this->app->singleton('infusionsoft', function ($app) {
+            return new Infusionsoft($app);
         });
     }
     /**
