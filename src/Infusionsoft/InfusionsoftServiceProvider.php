@@ -51,7 +51,7 @@ class InfusionsoftServiceProvider extends ServiceProvider
     private function registerInfusionsoft()
     {
         $this->app->singleton('infusionsoft', function() {
-            $infusionsoft = new \Upwebdesign\Infusionsoft();
+            $infusionsoft = new \Upwebdesign\Infusionsoft\Infusionsoft;
             $infusionsoft->refreshAccessToken();
             return $infusionsoft;
         });
