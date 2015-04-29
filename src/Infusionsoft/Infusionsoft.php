@@ -50,7 +50,6 @@ class Infusionsoft extends Inf
             // ->setPassword(env('INFUSIONSOFT_PASSWORD'));
         // $this->requestAccessToken(env('INFUSIONSOFT_CODE'));
         // $this->setToken(new Token(['access_token' => env('INFUSIONSOFT_TOKEN')]));
-        $this->refreshAccessToken();
     }
 
     /**
