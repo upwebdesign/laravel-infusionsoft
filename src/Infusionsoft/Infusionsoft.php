@@ -44,10 +44,10 @@ class Infusionsoft extends Inf
     {
         $this->app = $app;
         $this->setClientId(env('INFUSIONSOFT_ID'))
-            ->setClientSecret(env('INFUSIONSOFT_SECRET'))
-            ->setUsername(env('INFUSIONSOFT_USERNAME'))
-            ->setPassword(env('INFUSIONSOFT_PASSWORD'));
-        self::requestAccessToken();
+            ->setClientSecret(env('INFUSIONSOFT_SECRET'));
+            // ->setUsername(env('INFUSIONSOFT_USERNAME'))
+            // ->setPassword(env('INFUSIONSOFT_PASSWORD'));
+        $this->requestAccessToken(env('INFUSIONSOFT_CODE'));
     }
 
     /**
@@ -57,22 +57,23 @@ class Infusionsoft extends Inf
      *
      * @return bool
      */
-    public function requestAccessToken($code=null)
-    {
-        if (is_null($code)) {
-            $params = array(
-                'client_id'  => $this->clientId,
-                'username'   => $this->username,
-                'password'   => $this->password,
-                'grant_type' => 'password'
-            );
-            $client = $this->getHttpClient();
-            $tokenInfo = $client->request($this->tokenUri, $params, array(), 'POST');
-            $this->setToken(new Token($tokenInfo));
-            return $this->getToken();
-        }
-        return parent::requestAccessToken($code);
-    }
+    // public function requestAccessToken($code=null)
+    // {
+    //     if (is_null($code)) {
+    //         $params = array(
+    //             'client_id'  => $this->clientId,
+    //             'client_secret' => $this->clientSecret,
+    //             'code'   => $this->code,
+    //             'grant_type' => 'authorization_code',
+    //             'redirect_uri'  => $this->redirectUri,
+    //         );
+    //         $client = $this->getHttpClient();
+    //         $tokenInfo = $client->request($this->tokenUri, $params, array(), 'POST');
+    //         $this->setToken(new Token($tokenInfo));
+    //         return $this->getToken();
+    //     }
+    //     return parent::requestAccessToken($code);
+    // }
 
     /**
      * @param string $username
@@ -91,6 +92,16 @@ class Infusionsoft extends Inf
     public function setPassword($password)
     {
         $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * @param string $code
+     * @return string
+     */
+    public function setAuthorizationCode($code)
+    {
+        $this->code = $code;
         return $this;
     }
 }
