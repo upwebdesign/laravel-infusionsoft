@@ -8,9 +8,10 @@
  * @package Upwebdesign\Infusionsoft
  */
 
+use \Infusionsoft\Infusionsoft as Inf;
 use \Config;
 
-class Infusionsoft extends \Infusionsoft\Infusionsoft
+class Infusionsoft extends Inf
 {
     /**
      * Infusionsoft user username
