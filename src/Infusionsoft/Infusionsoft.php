@@ -40,7 +40,7 @@ class Infusionsoft extends Inf
         $this->setClientSecret(env('INFUSIONSOFT_SECRET'));
         $token_path = sprintf('%s/infusionsoft.token', storage_path());
         if (file_exists($token_path)) {
-            $this->setToken(new Token(json_decode(file_get_contents($token_path))));
+            $this->setToken(new Token(unserialize(file_get_contents($token_path))));
         } else if (empty($this->authorization_code)) {
             $this->setRedirectUri('http://digitalexpertsacademy.app');
             dd(sprintf('You must authorize your application here: %s', $infusionsoft->getAuthorizationUrl()));
@@ -51,7 +51,7 @@ class Infusionsoft extends Inf
         if ($token->getEndOfLife() < time()) {
             $token = $this->refreshAccessToken();
             $extra = $token->getExtraInfo();
-            file_put_contents($token_path, json_encode([
+            file_put_contents($token_path, serialize([
                 "access_token" => $token->getAccessToken(),
                 "refresh_token" => $token->getRefreshToken(),
                 "expires_in" => $token->getEndOfLife(),
