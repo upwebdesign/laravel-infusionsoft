@@ -22,88 +22,52 @@ class Infusionsoft extends Inf
     protected $app;
 
     /**
-     * Infusionsoft user username
+     * oAuth autorization code
      *
      * @var string
      */
-    protected $username;
-
-    /**
-     * Infusionsoft user password
-     *
-     * @var string
-     */
-
-    protected $password;
+    protected $authorization_code;
 
     /**
      * Create a new confide instance.
      *
      * @return void
      */
-    public function __construct($app)
+    public function __construct()
     {
-        $this->app = $app;
-        $this->setClientId(env('INFUSIONSOFT_ID'))
-            ->setClientSecret(env('INFUSIONSOFT_SECRET'));
-            // ->setUsername(env('INFUSIONSOFT_USERNAME'))
-            // ->setPassword(env('INFUSIONSOFT_PASSWORD'));
-        // $this->requestAccessToken(env('INFUSIONSOFT_CODE'));
-        // $this->setToken(new Token(['access_token' => env('INFUSIONSOFT_TOKEN')]));
-    }
-
-    /**
-     *
-     *
-     * @param string $permission Permission string.
-     *
-     * @return bool
-     */
-    // public function requestAccessToken($code=null)
-    // {
-    //     if (is_null($code)) {
-    //         $params = array(
-    //             'client_id'  => $this->clientId,
-    //             'client_secret' => $this->clientSecret,
-    //             'code'   => $this->code,
-    //             'grant_type' => 'authorization_code',
-    //             'redirect_uri'  => $this->redirectUri,
-    //         );
-    //         $client = $this->getHttpClient();
-    //         $tokenInfo = $client->request($this->tokenUri, $params, array(), 'POST');
-    //         $this->setToken(new Token($tokenInfo));
-    //         return $this->getToken();
-    //     }
-    //     return parent::requestAccessToken($code);
-    // }
-
-    /**
-     * @param string $username
-     * @return string
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-        return $this;
-    }
-
-    /**
-     * @param string $password
-     * @return string
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-        return $this;
+        $this->setAuthorizationCode(env('INFUSIONSOFT_CODE'));
+        $this->setClientId(env('INFUSIONSOFT_ID'));
+        $this->setClientSecret(env('INFUSIONSOFT_SECRET'));
+        $token_path = sprintf('%s/infusionsoft.token', storage_path());
+        if (file_exists($token_path)) {
+            $this->setToken(new Token(json_decode(file_get_contents($token_path))));
+        } else if (empty($this->authorization_code)) {
+            $this->setRedirectUri('http://digitalexpertsacademy.app');
+            dd(sprintf('You must authorize your application here: %s', $infusionsoft->getAuthorizationUrl()));
+        } else {
+            $this->requestAccessToken(env('INFUSIONSOFT_CODE'));
+        }
+        $token = $this->getToken();
+        if ($token->getEndOfLife() < time()) {
+            $token = $this->refreshAccessToken();
+            $extra = $token->getExtraInfo();
+            file_put_contents($token_path, json_encode([
+                "access_token" => $token->getAccessToken(),
+                "refresh_token" => $token->getRefreshToken(),
+                "expires_in" => $token->getEndOfLife(),
+                "token_type" => $extra['token_type'],
+                "scope" => $extra['scope']
+            ]));
+        }
     }
 
     /**
      * @param string $code
      * @return string
      */
-    public function setAuthorizationCode($code)
+    public function setAuthorizationCode($authorization_code)
     {
-        $this->code = $code;
+        $this->authorization_code = $authorization_code;
         return $this;
     }
 }
