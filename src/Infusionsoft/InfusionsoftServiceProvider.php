@@ -50,15 +50,8 @@ class InfusionsoftServiceProvider extends ServiceProvider
      */
     private function registerInfusionsoft()
     {
-        // $this->app->singleton('infusionsoft', function() {
-        //     $infusionsoft = new \Upwebdesign\Infusionsoft\Infusionsoft;
-        //     $infusionsoft->requestAccessToken();
-        //     return $infusionsoft;
-        // });
         $this->app->bind('infusionsoft', function () {
-            $infusionsoft = new \Upwebdesign\Infusionsoft\Infusionsoft;
-            $infusionsoft->requestAccessToken();
-            return $infusionsoft;
+            return new Infusionsoft;
         });
     }
     /**

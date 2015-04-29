@@ -35,11 +35,11 @@ class Infusionsoft extends Inf
      */
     public function __construct()
     {
-        dd('here');
         $this->setClientId(env('INFUSIONSOFT_ID'))
             ->setClientSecret(env('INFUSIONSOFT_SECRET'))
             ->setUsername(env('INFUSIONSOFT_USERNAME'))
             ->setPassword(env('INFUSIONSOFT_PASSWORD'));
+        self::requestAccessToken();
     }
 
     /**
