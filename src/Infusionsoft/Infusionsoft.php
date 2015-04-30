@@ -13,6 +13,7 @@ namespace Upwebdesign\Infusionsoft;
 use Infusionsoft\Infusionsoft as Inf;
 use Infusionsoft\Token;
 use Upwebdesign\Infusionsoft\InfusionsoftException;
+use Storage;
 
 class Infusionsoft extends Inf
 {
