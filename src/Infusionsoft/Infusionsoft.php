@@ -39,6 +39,7 @@ class Infusionsoft extends Inf
         $this->setClientId(Config::get('infusionsoft.client_id'));
         $this->setClientSecret(Config::get('infusionsoft.client_secret'));
         $token_path = sprintf('%s/infusionsoft.token', storage_path());
+        $new_token = false;
         if (file_exists($token_path)) {
             $this->setToken(new Token(unserialize(file_get_contents($token_path))));
         } else if (empty($this->authorization_code)) {
@@ -46,11 +47,14 @@ class Infusionsoft extends Inf
             dd(sprintf('You must authorize your application here: %s', $this->getAuthorizationUrl()));
         } else {
             $this->requestAccessToken($this->authorization_code);
+            $new_token = true;
         }
         $token = $this->getToken();
-        if ($token->getEndOfLife() < time()) {
-            $token = $this->refreshAccessToken();
+        if ($token->getEndOfLife() < time() || $new_token) {
             $extra = $token->getExtraInfo();
+            if (!$new_token) {
+                $token = $this->refreshAccessToken();
+            }
             file_put_contents($token_path, serialize([
                 "access_token" => $token->getAccessToken(),
                 "refresh_token" => $token->getRefreshToken(),
