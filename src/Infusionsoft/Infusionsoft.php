@@ -38,12 +38,13 @@ class Infusionsoft extends Inf
         $this->setAuthorizationCode(Config::get('infusionsoft.auth_code'));
         $this->setClientId(Config::get('infusionsoft.client_id'));
         $this->setClientSecret(Config::get('infusionsoft.client_secret'));
+        $this->setRedirectUri(Config::get('infusionsoft.redirect_uri'));
         $token_path = sprintf('%s/infusionsoft.token', storage_path());
         $new_token = false;
         if (file_exists($token_path)) {
-            $this->setToken(new Token(unserialize(file_get_contents($token_path))));
+            $token = unserialize(file_get_contents($token_path));
+            $this->setToken(new Token($token));
         } else if (empty($this->authorization_code)) {
-            $this->setRedirectUri(Config::get('infusionsoft.redirect_uri'));
             dd(sprintf('You must authorize your application here: %s', $this->getAuthorizationUrl()));
         } else {
             $this->requestAccessToken($this->authorization_code);
