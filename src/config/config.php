@@ -8,37 +8,51 @@
 return array(
     /*
     |--------------------------------------------------------------------------
-    | The name of your Infusionsoft application
+    | Infusionsoft Token File Name
     |--------------------------------------------------------------------------
     |
-    | You may log into Infusionsoft to obtain your application name.
+    | The token is stored in local storage when initially authorizing your
+    | application. This is the name of the token file and can be renamed
+    | to your liking.
+    |
+    */
+    'token_name' => 'infusionsoft.token',
+    /*
+    |--------------------------------------------------------------------------
+    | Infusionsoft Client ID
+    |--------------------------------------------------------------------------
+    |
+    | If you do not have a client ID, you need to get one at:
+    | http://developer.infusionsoft.com
     |
     */
     'client_id' => env('INFUSIONSOFT_ID'),
     /*
     |--------------------------------------------------------------------------
-    | Your API Key, obtained from Infusionsoft
+    | Infusionsoft Client Secret
     |--------------------------------------------------------------------------
     |
-    | You may log into Infusionsoft to retreive this key.
+    | If you do not have a client secret, you need to get one at:
+    | http://developer.infusionsoft.com
     |
     */
     'client_secret' => env('INFUSIONSOFT_SECRET'),
     /*
     |--------------------------------------------------------------------------
-    | Your API Key, obtained from Infusionsoft
+    | Infusionsoft Authorization Code
     |--------------------------------------------------------------------------
     |
-    | You may log into Infusionsoft to retreive this key.
+    | Your authorization code you receive when authorizing your application
     |
     */
     'auth_code' => env('INFUSIONSOFT_AUTHORIZATION_CODE'),
     /*
     |--------------------------------------------------------------------------
-    | Your API Key, obtained from Infusionsoft
+    | Infusionsoft Redirect URI
     |--------------------------------------------------------------------------
     |
-    | You may log into Infusionsoft to retreive this key.
+    | This is the redirect URL Infusionsoft will use to inform you of
+    | your authorization code.
     |
     */
     'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI')

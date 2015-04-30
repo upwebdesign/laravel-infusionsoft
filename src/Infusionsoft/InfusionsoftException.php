@@ -1,6 +1,5 @@
-<?php namespace Upwebdesign\Infusionsoft;
+<?php
 
-class InfusionsoftException extends \Exception
-{
+namespace Upwebdesign\Infusionsoft;
 
-}
+class InfusionsoftException extends \Exception {}

@@ -1,4 +1,6 @@
-<?php namespace Upwebdesign\Infusionsoft;
+<?php
+
+namespace Upwebdesign\Infusionsoft;
 
 /**
  * This file is part of Infusionsoft

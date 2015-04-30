@@ -1,4 +1,6 @@
-<?php namespace Upwebdesign\Infusionsoft;
+<?php
+
+namespace Upwebdesign\Infusionsoft;
 
 /**
  * This class is the main entry point of Infusionsoft. Usually this the interaction
@@ -8,19 +10,18 @@
  * @package Upwebdesign\Infusionsoft
  */
 
-use \Infusionsoft\Infusionsoft as Inf;
-use \Infusionsoft\Token;
-use InfusionsoftException;
-use \Config;
+use Infusionsoft\Infusionsoft as Inf;
+use Infusionsoft\Token;
+use Upwebdesign\Infusionsoft\InfusionsoftException;
 
 class Infusionsoft extends Inf
 {
     /**
-     * Laravel app
+     * Token name
      *
-     * @var object
+     * @var string
      */
-    protected $app;
+    protected $token_name;
 
     /**
      * oAuth autorization code
@@ -36,17 +37,17 @@ class Infusionsoft extends Inf
      */
     public function __construct()
     {
-        $this->setAuthorizationCode(Config::get('infusionsoft.auth_code'));
-        $this->setClientId(Config::get('infusionsoft.client_id'));
-        $this->setClientSecret(Config::get('infusionsoft.client_secret'));
-        $this->setRedirectUri(Config::get('infusionsoft.redirect_uri'));
-        $token_path = sprintf('%s/infusionsoft.token', storage_path());
+        $this->setTokenName(config('infusionsoft.token_name'));
+        $this->setAuthorizationCode(config('infusionsoft.auth_code'));
+        $this->setClientId(config('infusionsoft.client_id'));
+        $this->setClientSecret(config('infusionsoft.client_secret'));
+        $this->setRedirectUri(config('infusionsoft.redirect_uri'));
         $new_token = false;
-        if (file_exists($token_path)) {
-            $token = unserialize(file_get_contents($token_path));
+        if (Storage::exists($this->token_name)) {
+            $token = unserialize(Storage::get($this->token_name));
             $this->setToken(new Token($token));
         } else if (empty($this->authorization_code)) {
-            dd(sprintf('You must authorize your application here: %s', $this->getAuthorizationUrl()));
+            throw new InfusionsoftException(sprintf('You must authorize your application here: %s', $this->getAuthorizationUrl()), 1);
         } else {
             $this->requestAccessToken($this->authorization_code);
             $new_token = true;
@@ -57,7 +58,7 @@ class Infusionsoft extends Inf
             if (!$new_token) {
                 $token = $this->refreshAccessToken();
             }
-            file_put_contents($token_path, serialize([
+            Storage::put($this->token_name, serialize([
                 "access_token" => $token->getAccessToken(),
                 "refresh_token" => $token->getRefreshToken(),
                 "expires_in" => $token->getEndOfLife(),
@@ -68,12 +69,22 @@ class Infusionsoft extends Inf
     }
 
     /**
-     * @param string $code
+     * @param string $authorization_code
      * @return string
      */
     public function setAuthorizationCode($authorization_code)
     {
         $this->authorization_code = $authorization_code;
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function setTokenName($name)
+    {
+        $this->token_name = $name;
         return $this;
     }
 }

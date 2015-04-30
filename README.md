@@ -41,6 +41,10 @@ This package uses .env to store your Infusionsoft app name and API key.
     INFUSIONSOFT_APP=appName
     INFUSIONSOFT_KEY=xxxxxxxxxxxxxxxxxxxxxxx
 
+## Notes
+
+The Infusionsoft token is stored locally in your storage folder, depending on how you set your filesysems.php configuration.
+
 ## License
 
 Upwebdesign/Infusionsoft & Infusionsoft SDK is free software distributed under the terms of the MIT license.
