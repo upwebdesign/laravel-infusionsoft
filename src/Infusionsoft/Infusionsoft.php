@@ -10,6 +10,7 @@
 
 use \Infusionsoft\Infusionsoft as Inf;
 use \Infusionsoft\Token;
+use InfusionsoftException;
 use \Config;
 
 class Infusionsoft extends Inf
