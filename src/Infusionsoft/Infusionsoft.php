@@ -54,7 +54,8 @@ class Infusionsoft extends Inf
             $new_token = true;
         }
         $token = $this->getToken();
-        if ($token->getEndOfLife() < time() || $new_token) {
+        $expired = ($token->getEndOfLife() - (time() * 2)) <= 0 ? true : false;
+        if ($expired || $new_token) {
             $extra = $token->getExtraInfo();
             if (!$new_token) {
                 $token = $this->refreshAccessToken();
@@ -64,7 +65,7 @@ class Infusionsoft extends Inf
                 "refresh_token" => $token->getRefreshToken(),
                 "expires_in" => $token->getEndOfLife(),
                 "token_type" => $extra['token_type'],
-                "scope" => $extra['scope']
+                "scope" => $extra['scope'],
             ]));
         }
     }
