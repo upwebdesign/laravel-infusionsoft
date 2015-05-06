@@ -19,6 +19,15 @@ return array(
     'token_name' => 'infusionsoft.token',
     /*
     |--------------------------------------------------------------------------
+    | Infusionsoft Debugging
+    |--------------------------------------------------------------------------
+    |
+    | Turn on debugging for Infusionsoft calls
+    |
+    */
+    'debug' => false,
+    /*
+    |--------------------------------------------------------------------------
     | Infusionsoft User ID
     |--------------------------------------------------------------------------
     |
@@ -64,5 +73,6 @@ return array(
     | your authorization code.
     |
     */
-    'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI')
+    'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI'),
+
 );

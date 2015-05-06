@@ -43,6 +43,9 @@ class Infusionsoft extends Inf
         $this->setClientId(config('infusionsoft.client_id'));
         $this->setClientSecret(config('infusionsoft.client_secret'));
         $this->setRedirectUri(config('infusionsoft.redirect_uri'));
+        if (config('infusionsoft.debug')) {
+            $this->setDebug(true);
+        }
         $new_token = false;
         if (Storage::exists($this->token_name)) {
             $token = unserialize(Storage::get($this->token_name));
