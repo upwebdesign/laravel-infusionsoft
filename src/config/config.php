@@ -74,5 +74,14 @@ return array(
     |
     */
     'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI'),
+    /*
+    |--------------------------------------------------------------------------
+    | Infusionsoft Tagging
+    |--------------------------------------------------------------------------
+    |
+    | Define your tags in Infusionsoft
+    |
+    */
+    'tags' => [],
 
 );
