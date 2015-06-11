@@ -43,7 +43,7 @@ This package uses .env to store your Infusionsoft app name and API key.
 
 ## Notes
 
-The Infusionsoft token is stored locally in your storage folder, depending on how you set your filesysems.php configuration.
+The Infusionsoft token is stored locally in your storage folder, depending on how you set your filesystems.php configuration.
 
 ## License
 
