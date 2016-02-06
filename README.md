@@ -1,45 +1,26 @@
 # Laravel/Infusionsoft (Laravel 5 Package)
 
-This package is not in working order, please create your own branch if you would like to attempt a crack at it.
-
-Laravel 5 Port of the Infusionsoft SDK
+Laravel 5 Port of the Infusionsoft PHP SDK
 
 ## Installation
 
 In order to install Laravel 5 Infusionsoft, just add
 
-    "infusionsoft/php-sdk": "dev-master",
-    "upwebdesign/laravel-infusionsoft": "dev-master"
+    composer require upwebdesign/laravel-infusionsoft
 
-to your composer.json. Then run `composer install` or `composer update`.
+Then in your `config/app.php` add the provider
 
-Then in your `config/app.php` add
+    Upwebdesign\Infusionsoft\InfusionsoftServiceProvider::class,
 
-    'Upwebdesign\Infusionsoft\InfusionsoftServiceProvider',
+in the providers array and optionally
 
-in the providers array and
-
-    'Infusionsoft' => 'Upwebdesign\Infusionsoft\InfusionsoftFacade',
+    'Infusionsoft' => Upwebdesign\Infusionsoft\InfusionsoftFacade::class,
 
 to the `aliases` array.
-
-Since this is not a Packagist Package (Yet) add this repository to your composer.json file
-
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/upwebdesign/laravel-infusionsoft"
-        }
-    ]
 
 ## Configuration
 
 Just use `php artisan vendor:publish` and a `infusionsoft.php` file will be created in your app/config directory.
-
-This package uses .env to store your Infusionsoft app name and API key.
-
-    INFUSIONSOFT_APP=appName
-    INFUSIONSOFT_KEY=xxxxxxxxxxxxxxxxxxxxxxx
 
 ## Notes
 
