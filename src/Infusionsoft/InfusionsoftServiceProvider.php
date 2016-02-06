@@ -45,6 +45,8 @@ class InfusionsoftServiceProvider extends ServiceProvider
             return new Infusionsoft($app);
         });
 
+        $this->app->alias('infusionsoft', Infusionsoft::class);
+
         $this->mergeConfigFrom(
             __DIR__.'/../config/config.php', 'infusionsoft'
         );
