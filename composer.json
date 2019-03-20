@@ -1,7 +1,7 @@
 {
     "name": "upwebdesign/laravel-infusionsoft",
     "description": "This package provides port of the Infusionsoft SDK utilizing Laravel fascades.",
-    "keywords": ["laravel","infusionsoft","sdk","isdk"],
+    "keywords": ["laravel", "infusionsoft", "sdk", "isdk"],
     "license": "MIT",
     "authors": [
         {
@@ -13,7 +13,8 @@
         "php": ">=5.5.0",
         "illuminate/console": "~5.0",
         "illuminate/support": "~5.0",
-        "infusionsoft/php-sdk": "~1.2"
+        "guzzlehttp/guzzle": "~6.1",
+        "infusionsoft/php-sdk": "~1.2",
     },
     "require-dev": {
         "phpunit/phpunit": "~4.1"
