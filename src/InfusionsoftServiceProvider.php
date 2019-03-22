@@ -28,6 +28,7 @@ class InfusionsoftServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->registerRoutes();
         // Publish config files
         $this->publishes([
             __DIR__.'/../config/config.php' => config_path('infusionsoft.php'),
@@ -50,6 +51,21 @@ class InfusionsoftServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/config.php', 'infusionsoft'
         );
+    }
+
+    /**
+     * Register routes for the service provider
+     *
+     * @return void
+     */
+    private function registerRoutes()
+    {
+        Route::group([
+            'namespace' => 'Upwebdesign\Infusionsoft\Http\Controllers',
+            'middleware' => 'web',
+        ], function () {
+            $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        });
     }
 
     /**
