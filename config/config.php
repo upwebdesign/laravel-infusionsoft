@@ -8,6 +8,16 @@
 return array(
     /*
     |--------------------------------------------------------------------------
+    | Infusionsoft Debugging
+    |--------------------------------------------------------------------------
+    |
+    | Turn on debugging for Infusionsoft calls
+    |
+    */
+    'debug' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Infusionsoft Token File Name
     |--------------------------------------------------------------------------
     |
@@ -16,16 +26,18 @@ return array(
     | to your liking.
     |
     */
-    'token_name' => 'infusionsoft.token',
+    'token_name' => env('INFUSIONSOFT_TOKEN_NAME', 'infusionsoft.token'),
+
     /*
     |--------------------------------------------------------------------------
-    | Infusionsoft Debugging
+    | Filesystem
     |--------------------------------------------------------------------------
     |
-    | Turn on debugging for Infusionsoft calls
+    | The file system used to store the access token received from Infusionsoft
     |
     */
-    'debug' => false,
+    'filesystem' => env('INFUSIONSOFT_FILESYSTEM', 'local'),
+
     /*
     |--------------------------------------------------------------------------
     | Infusionsoft User ID
@@ -35,6 +47,7 @@ return array(
     |
     */
     'user_id' => env('INFUSIONSOFT_USER_ID'),
+
     /*
     |--------------------------------------------------------------------------
     | Infusionsoft Client ID
@@ -44,7 +57,8 @@ return array(
     | http://developer.infusionsoft.com
     |
     */
-    'client_id' => env('INFUSIONSOFT_ID'),
+    'client_id' => env('INFUSIONSOFT_CLIENT_ID'),
+
     /*
     |--------------------------------------------------------------------------
     | Infusionsoft Client Secret
@@ -54,34 +68,16 @@ return array(
     | http://developer.infusionsoft.com
     |
     */
-    'client_secret' => env('INFUSIONSOFT_SECRET'),
-    /*
-    |--------------------------------------------------------------------------
-    | Infusionsoft Authorization Code
-    |--------------------------------------------------------------------------
-    |
-    | Your authorization code you receive when authorizing your application
-    |
-    */
-    'auth_code' => env('INFUSIONSOFT_AUTHORIZATION_CODE'),
-    /*
-    |--------------------------------------------------------------------------
-    | Infusionsoft Redirect URI
-    |--------------------------------------------------------------------------
-    |
-    | This is the redirect URL Infusionsoft will use to inform you of
-    | your authorization code.
-    |
-    */
-    'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI'),
-    /*
-    |--------------------------------------------------------------------------
-    | Infusionsoft Tagging
-    |--------------------------------------------------------------------------
-    |
-    | Define your tags in Infusionsoft
-    |
-    */
-    'tags' => [],
+    'client_secret' => env('INFUSIONSOFT_CLIENT_SECRET'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Infusionsoft redirect URI
+    |--------------------------------------------------------------------------
+    |
+    | This is the callback URL that Infusionsoft will redirect the users back
+    | to after authorization.
+    |
+    */
+    'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI', url('infusionsoft/auth/callback'))
 );
