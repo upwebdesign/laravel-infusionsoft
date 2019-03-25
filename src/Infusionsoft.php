@@ -10,10 +10,11 @@ namespace Upwebdesign\Infusionsoft;
  * @package Upwebdesign\Infusionsoft
  */
 
-use Infusionsoft\Infusionsoft as Inf;
-use Infusionsoft\Token;
-use Upwebdesign\Infusionsoft\InfusionsoftException;
 use Storage;
+use Infusionsoft\Token;
+use Infusionsoft\Infusionsoft as Inf;
+use Illuminate\Support\Facades\Request;
+use Infusionsoft\InfusionsoftException;
 
 class Infusionsoft extends Inf
 {
@@ -39,7 +40,7 @@ class Infusionsoft extends Inf
     public function __construct()
     {
         $this->setTokenName(config('infusionsoft.token_name'));
-        $this->setAuthorizationCode(config('infusionsoft.auth_code'));
+        // $this->setAuthorizationCode(config('infusionsoft.auth_code'));
         $this->setClientId(config('infusionsoft.client_id'));
         $this->setClientSecret(config('infusionsoft.client_secret'));
         $this->setRedirectUri(config('infusionsoft.redirect_uri'));
@@ -50,11 +51,14 @@ class Infusionsoft extends Inf
         if (Storage::exists($this->token_name)) {
             $token = unserialize(Storage::get($this->token_name));
             $this->setToken(new Token($token));
-        } else if (empty($this->authorization_code)) {
-            throw new InfusionsoftException(sprintf('You must authorize your application here: %s', $this->getAuthorizationUrl()), 1);
-        } else {
-            $this->requestAccessToken($this->authorization_code);
+        } elseif (Request::has('code')) {
+            $this->requestAccessToken(Request::get('code'));
             $new_token = true;
+        } else {
+            throw new InfusionsoftException(sprintf(
+                'You must authorize your application here: %s',
+                $this->getAuthorizationUrl()
+            ), 1);
         }
         $token = $this->getToken();
         $expired = ($token->getEndOfLife() - (time() * 2)) <= 0 ? true : false;
