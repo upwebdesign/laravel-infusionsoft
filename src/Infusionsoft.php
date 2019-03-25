@@ -40,7 +40,6 @@ class Infusionsoft extends Inf
     public function __construct()
     {
         $this->setTokenName(config('infusionsoft.token_name'));
-        // $this->setAuthorizationCode(config('infusionsoft.auth_code'));
         $this->setClientId(config('infusionsoft.client_id'));
         $this->setClientSecret(config('infusionsoft.client_secret'));
         $this->setRedirectUri(config('infusionsoft.redirect_uri'));
@@ -67,7 +66,7 @@ class Infusionsoft extends Inf
             if (!$new_token) {
                 $token = $this->refreshAccessToken();
             }
-            Storage::put($this->token_name, serialize([
+            Storage::disk(config('infusionsoft.filesystem'))->put($this->token_name, serialize([
                 "access_token" => $token->getAccessToken(),
                 "refresh_token" => $token->getRefreshToken(),
                 "expires_in" => $token->getEndOfLife(),
