@@ -38,15 +38,8 @@ class InfusionsoftLumenServiceProvider extends ServiceProvider
             'prefix'=>'infusionsoft',
             'namespace' => 'Upwebdesign\Infusionsoft\Http\Controllers'
         ], function ($app) {
+            $app->get('auth/callback', 'InfusionsoftController@callback');
             $app->get('auth', 'InfusionsoftController@auth');
         });
-        // Route::get('infusionsoft/auth', 'InfusionsoftController@auth');
-        // Route::get('infusionsoft/auth/callback', 'InfusionsoftController@index');
-        // Route::group([
-        //     'namespace' => 'Upwebdesign\Infusionsoft\Http\Controllers',
-        //     'middleware' => 'web',
-        // ], function () {
-        //     $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        // });
     }
 }
