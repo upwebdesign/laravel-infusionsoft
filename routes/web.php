@@ -1,4 +1,4 @@
 <?php
 
-Route::get('infusionsoft/auth', 'InfusionsoftController@auth');
-Route::get('infusionsoft/auth/callback', 'InfusionsoftController@callback');
+Route::get('auth', 'InfusionsoftController@auth');
+Route::get('auth/callback', 'InfusionsoftController@callback');

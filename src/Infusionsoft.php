@@ -42,7 +42,7 @@ class Infusionsoft extends Inf
         $this->setTokenName(config('infusionsoft.token_name'));
         $this->setClientId(config('infusionsoft.client_id'));
         $this->setClientSecret(config('infusionsoft.client_secret'));
-        $this->setRedirectUri(config('infusionsoft.redirect_uri'));
+        $this->setRedirectUri(url(config('infusionsoft.redirect_uri')));
         if (config('infusionsoft.debug')) {
             $this->setDebug(true);
         }

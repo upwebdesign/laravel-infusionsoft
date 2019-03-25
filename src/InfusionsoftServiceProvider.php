@@ -9,6 +9,7 @@ namespace Upwebdesign\Infusionsoft;
  * @package Upwebdesign\Infusionsoft
  */
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class InfusionsoftServiceProvider extends ServiceProvider
@@ -32,7 +33,7 @@ class InfusionsoftServiceProvider extends ServiceProvider
         // Publish config files
         $this->publishes([
             __DIR__.'/../config/config.php' => config_path('infusionsoft.php'),
-        ]);
+        ], 'config');
     }
 
     /**
@@ -61,6 +62,7 @@ class InfusionsoftServiceProvider extends ServiceProvider
     private function registerRoutes()
     {
         Route::group([
+            'prefix'=>'infusionsoft',
             'namespace' => 'Upwebdesign\Infusionsoft\Http\Controllers',
             'middleware' => 'web',
         ], function () {
