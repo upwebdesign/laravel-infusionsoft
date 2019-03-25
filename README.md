@@ -4,15 +4,15 @@ Laravel 5 Port of the Infusionsoft PHP SDK
 
 ## Installation
 
-In order to install Laravel 5 Infusionsoft, just add
+Use composer to install this package:
 
     composer require upwebdesign/laravel-infusionsoft
 
-Then in your `config/app.php` add the provider
+For Laravel 5.6+, this package uses service provider and alias auto discovery. You can still add the service provider and alias below in `config/app.php`.
 
     Upwebdesign\Infusionsoft\InfusionsoftServiceProvider::class,
 
-in the providers array and optionally
+in the `providers` array and optionally
 
     'Infusionsoft' => Upwebdesign\Infusionsoft\InfusionsoftFacade::class,
 
@@ -20,28 +20,44 @@ to the `aliases` array.
 
 ## Configuration
 
-Just use `php artisan vendor:publish` and a `infusionsoft.php` file will be created in your app/config directory.
+Publish `infusionsoft.php` config file.
+
+```shell
+php artisan vendor:publish --provider="Upwebdesign\Infusionsoft\InfusionsoftServiceProvider" --tag="config"
+```
 
 ## Environment
 
 Fill in your Client ID and Secret along with the redirect URI
 
-```
-INFUSIONSOFT_ID=
-INFUSIONSOFT_SECRET=
-INFUSIONSOFT_AUTHORIZATION_CODE=
+```php
+INFUSIONSOFT_CLIEND_ID=
+INFUSIONSOFT_CLIENT_SECRET=
+# Optional
 INFUSIONSOFT_REDIRECT_URI=
+INFUSIONSOFT_TOKEN_NAME=
+INFUSIONSOFT_FILESYSTEM=
 ```
+
+## Credentials
 
 Once you have all the necessary authorization information entered in your `.env` we can begin the authorization process.
 
-When making your first call to Infusionsoft, you will be presented with an exception which contains your authorization URL. Visit that URL, login and authorize your app. The resulting URL will contain your `Authorization Code`. Copy and paste the code in your `INFUSIONSOFT_AUTHORIZATION_CODE` environment definition.
+You may access the route `/infusionsoft/auth` to begin the authorization process. This route will generate the necessary authorization URL to infusionsoft and redirect you to your Infusionsoft application. You must log into Infusionsoft and authorize your app to use the Infusionsoft API. Once you `allow`, you will be redirected back to your application `/infusionsoft/auth/callback`. Here you will either receive an exception or a successful message.
+
+## Redirect URI
+
+INFUSIONSOFT_REDIRECT_URI if used, will override the callback from Infusionsoft and will result in the `infusionsoft.token` to not get created. This means you will need to handle the authorization code returned back from Infusionsoft to request an access token.
+
+## Token Name & Filesystem
+
+Token name default is `infusionsoft.token`, but can be overridden by INFUSIONSOFT_TOKEN_NAME. By default the file system is set to `local`, but can be any file system you have set up in your application and can be overridden by INFUSIONSOFT_FILESYSTEM.
 
 ## Notes
 
 The Infusionsoft token is stored locally in your storage folder, depending on how you set your filesystems.php configuration.
 
-### Lumen
+# Lumen
 
 Register the service provider
 
@@ -49,11 +65,10 @@ Register the service provider
 $app->register(Upwebdesign\Infusionsoft\InfusionsoftLumenServiceProvider::class);
 ```
 
-Add the ability to read the `infusionsoft` config file
-
-Add our configuration `bootstrap/app.php`
+Add Infusionsoft configuration `bootstrap/app.php`
 
 ```php
+// Add the ability to read the `infusionsoft` config file
 $app->configure('infusionsoft');
 ```
 
