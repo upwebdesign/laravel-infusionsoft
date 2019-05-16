@@ -1,3 +1,5 @@
+<a href="https://packagist.org/packages/upwebdesign/laravel-infusionsoft"><img src="https://poser.pugx.org/upwebdesign/laravel-infusionsoft/downloads.svg?format=flat" alt="Total Downloads"></a>
+
 # Laravel/Infusionsoft (Laravel 5 Package)
 
 Laravel 5 Port of the Infusionsoft PHP SDK
