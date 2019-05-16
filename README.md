@@ -1,4 +1,5 @@
 <a href="https://packagist.org/packages/upwebdesign/laravel-infusionsoft"><img src="https://poser.pugx.org/upwebdesign/laravel-infusionsoft/downloads.svg?format=flat" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/upwebdesign/laravel-infusionsoft"><img src="https://poser.pugx.org/upwebdesign/laravel-infusionsoft/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
 
 # Laravel/Infusionsoft (Laravel 5 Package)
 
