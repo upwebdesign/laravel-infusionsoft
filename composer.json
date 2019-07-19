@@ -1,5 +1,5 @@
 {
-    "name": "lstw/laravel-infusionsoft",
+    "name": "upwebdesign/laravel-infusionsoft",
     "description": "This package provides port of the Infusionsoft SDK utilizing Laravel fascades.",
     "keywords": ["laravel", "infusionsoft", "sdk", "isdk"],
     "license": "MIT",
