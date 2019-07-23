@@ -12,4 +12,12 @@ class OrderService extends \Infusionsoft\Api\Rest\OrderService
 
     return $response;
   }
+
+
+  public function retrieveOrder()
+  {
+    $response = $this->client->restfulRequest('get', $this->getFullUrl($this->id));
+
+    return $response;
+  }
 }
