@@ -1,9 +1,9 @@
 <a href="https://packagist.org/packages/upwebdesign/laravel-infusionsoft"><img src="https://poser.pugx.org/upwebdesign/laravel-infusionsoft/downloads.svg?format=flat" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/upwebdesign/laravel-infusionsoft"><img src="https://poser.pugx.org/upwebdesign/laravel-infusionsoft/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
 
-# Laravel/Infusionsoft (Laravel 5 Package)
+# Laravel 6 & 7 Laravel Infusionsoft
 
-Laravel 5 Port of the Infusionsoft PHP SDK
+This package eases the oAuth flow for authentication and helps with token management.
 
 ## Installation
 
@@ -31,15 +31,13 @@ php artisan vendor:publish --provider="Upwebdesign\Infusionsoft\InfusionsoftServ
 
 ## Environment
 
-Fill in your Client ID and Secret along with the redirect URI
+Fill in your Client ID and Secret along with the redirect URI and cache store. Default values are used below.
 
-```php
+```
 INFUSIONSOFT_CLIEND_ID=
 INFUSIONSOFT_CLIENT_SECRET=
-# Optional
-INFUSIONSOFT_REDIRECT_URI=
-INFUSIONSOFT_TOKEN_NAME=
-INFUSIONSOFT_FILESYSTEM=
+INFUSIONSOFT_REDIRECT_URI=/infusionsoft/auth/callback
+INFUSIONSOFT_CACHE=file
 ```
 
 ## Credentials
@@ -52,13 +50,9 @@ You may access the route `/infusionsoft/auth` to begin the authorization process
 
 INFUSIONSOFT_REDIRECT_URI if used, will override the callback from Infusionsoft and will result in the `infusionsoft.token` to not get created. This means you will need to handle the authorization code returned back from Infusionsoft to request an access token.
 
-## Token Name & Filesystem
+## Token Name & Cache
 
-Token name default is `infusionsoft.token`, but can be overridden by INFUSIONSOFT_TOKEN_NAME. By default the file system is set to `local`, but can be any file system you have set up in your application and can be overridden by INFUSIONSOFT_FILESYSTEM.
-
-## Notes
-
-The Infusionsoft token is stored locally in your storage folder, depending on how you set your filesystems.php configuration.
+Token name default is `infusionsoft.token`, but can be overridden by INFUSIONSOFT_TOKEN_NAME. By default the cache store is set to `local`, but can be any cache store you have set up in your application and can be overridden by INFUSIONSOFT_CACHE. The default cache store is `file`, but can be any cache store you have set up.
 
 # Lumen
 
