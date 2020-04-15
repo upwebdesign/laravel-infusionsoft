@@ -47,11 +47,12 @@ class Infusionsoft extends Inf
             $this->setDebug(true);
         }
         $new_token = false;
-        if (Storage::exists($this->token_name)) {
-            $token = unserialize(Storage::get($this->token_name));
+        $store = config('infusionsoft.cache');
+        if (cache()->store($store)->has($this->token_name)) {
+            $token = unserialize(cache()->store($store)->get($this->token_name));
             $this->setToken(new Token($token));
-        } elseif (Request::has('code')) {
-            $this->requestAccessToken(Request::get('code'));
+        } elseif (request()->has('code')) {
+            $this->requestAccessToken(request()->get('code'));
             $new_token = true;
         } else {
             throw new InfusionsoftException(sprintf(
@@ -66,7 +67,7 @@ class Infusionsoft extends Inf
             if (!$new_token) {
                 $token = $this->refreshAccessToken();
             }
-            Storage::disk(config('infusionsoft.filesystem'))->put($this->token_name, serialize([
+            cache()->store($store)->forever($this->token_name, serialize([
                 "access_token" => $token->getAccessToken(),
                 "refresh_token" => $token->getRefreshToken(),
                 "expires_in" => $token->getEndOfLife(),

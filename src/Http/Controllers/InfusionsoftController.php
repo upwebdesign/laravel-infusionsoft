@@ -21,7 +21,7 @@ class InfusionsoftController extends Controller
             throw new \Infusionsoft\InfusionsoftException("Infusionsoft Client Secret not present", 1);
         }
         // Check for existing infusionsoft.token
-        if (Storage::disk(config('infusionsoft.filesystem'))->exists(config('infusionsoft.token_name'))) {
+        if (cache()->store(config('infusionsoft.cache'))->has(config('infusionsoft.token_name'))) {
             throw new \Infusionsoft\InfusionsoftException(
                 "Infusionsoft token file exists, please remove it to reauthorize with Infusionsoft"
             );

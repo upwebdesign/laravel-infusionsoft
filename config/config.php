@@ -30,13 +30,14 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Filesystem
+    | Cache
     |--------------------------------------------------------------------------
     |
-    | The file system used to store the access token received from Infusionsoft
+    | The caching system used to store the access and refresh token received
+    | from Infusionsoft
     |
     */
-    'filesystem' => env('INFUSIONSOFT_FILESYSTEM', 'local'),
+    'cache' => env('INFUSIONSOFT_CACHE', 'local'),
 
     /*
     |--------------------------------------------------------------------------
