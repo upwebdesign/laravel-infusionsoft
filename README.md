@@ -34,7 +34,7 @@ php artisan vendor:publish --provider="Upwebdesign\Infusionsoft\InfusionsoftServ
 Fill in your Client ID and Secret along with the redirect URI and cache store. Default values are used below.
 
 ```
-INFUSIONSOFT_CLIEND_ID=
+INFUSIONSOFT_CLIENT_ID=
 INFUSIONSOFT_CLIENT_SECRET=
 INFUSIONSOFT_REDIRECT_URI=/infusionsoft/auth/callback
 INFUSIONSOFT_CACHE=file
