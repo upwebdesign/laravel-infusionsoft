@@ -34,7 +34,7 @@ php artisan vendor:publish --provider="Upwebdesign\Infusionsoft\InfusionsoftServ
 Fill in your Client ID and Secret along with the redirect URI
 
 ```php
-INFUSIONSOFT_CLIEND_ID=
+INFUSIONSOFT_CLIENT_ID=
 INFUSIONSOFT_CLIENT_SECRET=
 # Optional
 INFUSIONSOFT_REDIRECT_URI=
