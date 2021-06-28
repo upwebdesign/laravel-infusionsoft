@@ -1,6 +1,6 @@
 <?php
 
-namespace Upwebdesign\Infusionsoft\Custom;
+namespace Upwebdesign\Infusionsoft\Custom\Api;
 
 
 use Infusionsoft\Infusionsoft as Inf;
