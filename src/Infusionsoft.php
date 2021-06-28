@@ -12,7 +12,7 @@ namespace Upwebdesign\Infusionsoft;
 
 use Storage;
 use Infusionsoft\Token;
-use \Upwebdesign\Infusionsoft\Custom\Infusionsoft as Inf;
+use \Upwebdesign\Infusionsoft\Custom\Api\Infusionsoft as Inf;
 use Illuminate\Support\Facades\Request;
 use Infusionsoft\InfusionsoftException;
 
