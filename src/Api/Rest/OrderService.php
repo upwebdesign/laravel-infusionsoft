@@ -1,6 +1,6 @@
 <?php
 
-namespace Upwebdesign\Infusionsoft\Custom\Api\Rest;
+namespace Upwebdesign\Infusionsoft\Api\Rest;
 
 
 class OrderService extends \Infusionsoft\Api\Rest\OrderService

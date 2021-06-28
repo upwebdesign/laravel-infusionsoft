@@ -1,6 +1,6 @@
 <?php
 
-namespace Upwebdesign\Infusionsoft\Custom\Api;
+namespace Upwebdesign\Infusionsoft\Api;
 
 
 use Infusionsoft\Infusionsoft as Inf;
@@ -20,7 +20,7 @@ class Infusionsoft extends Inf
   public function getRestApi($class)
   {
     if ($class === 'OrderService') {
-      $class = '\Upwebdesign\Infusionsoft\Custom\Api\Rest\\' . $class;
+      $class = '\Upwebdesign\Infusionsoft\Api\Rest\\' . $class;
     } else {
       $class = '\Infusionsoft\Api\Rest\\' . $class;
     }
