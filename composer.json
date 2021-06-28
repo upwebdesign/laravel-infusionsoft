@@ -12,10 +12,10 @@
     "require": {
         "php": ">=5.6.0",
         "guzzlehttp/guzzle": "~6.1",
-        "illuminate/console": "~5.0",
-        "illuminate/support": "~5.0",
-        "illuminate/routing": "~5.0",
-        "infusionsoft/php-sdk": "~1.4",
+        "illuminate/console": "~5.7",
+        "illuminate/support": "~5.7",
+        "illuminate/routing": "~5.7",
+        "infusionsoft/php-sdk": "^1.4",
         "league/flysystem": " ~1.0"
     },
     "require-dev": {
