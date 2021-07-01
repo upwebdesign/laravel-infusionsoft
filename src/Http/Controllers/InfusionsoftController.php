@@ -30,7 +30,7 @@ class InfusionsoftController extends Controller
         $infusionsoft = (new \Infusionsoft\Infusionsoft)
             ->setClientId(config('infusionsoft.client_id'))
             ->setClientSecret(config('infusionsoft.client_secret'))
-            ->setRedirectUri(config('infusionsoft.redirect_uri', url('infusionsoft/auth/callback')));
+            ->setRedirectUri(url(config('infusionsoft.redirect_uri')));
         // Return a redirect to authorize app to access Infusionsoft
         return redirect($infusionsoft->getAuthorizationUrl());
     }

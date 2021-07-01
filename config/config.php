@@ -80,5 +80,5 @@ return array(
     | to after authorization.
     |
     */
-    'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI')
+    'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI', 'infusionsoft/auth/callback')
 );
