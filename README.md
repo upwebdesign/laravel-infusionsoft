@@ -37,6 +37,7 @@ Fill in your Client ID and Secret along with the redirect URI and cache store. D
 INFUSIONSOFT_CLIENT_ID=
 INFUSIONSOFT_CLIENT_SECRET=
 INFUSIONSOFT_CACHE=file
+INFUSIONSOFT_REDIRECT_URI="/infusionsoft/auth/callback"
 ```
 
 ## Credentials
