@@ -42,16 +42,15 @@ class Infusionsoft extends Inf
      */
     public function __construct($account = false)
     {
+        $is_multi = is_string($account);
         $this->store = config('infusionsoft.cache');
-
         // Determine the cache token name
-        if ($account) {
+        if ($is_multi) {
             $this->setTokenName(sprintf('%s.%s', config('infusionsoft.token_name'), $account));
         } else {
             $this->setTokenName(sprintf('%s.default', config('infusionsoft.token_name')));
         }
-
-        if (config('infusionsoft.multi') && $account) {
+        if (config('infusionsoft.multi') && $is_multi) {
             $infusionsoft_accounts = json_decode(trim(stripslashes(config('infusionsoft.accounts'))), true);
             $infusionsoft_account = current(array_filter($infusionsoft_accounts, function ($infusionsoft_account) use ($account) {
                 return $account === array_key_first($infusionsoft_account);
@@ -78,7 +77,6 @@ class Infusionsoft extends Inf
             $client_secret = config('infusionsoft.client_secret');
             $redirect_uri = config('infusionsoft.redirect_uri');
         }
-
         // Check for existing client id
         if (empty($client_id)) {
             throw new \Infusionsoft\InfusionsoftException('Infusionsoft Client ID not present', 1);
@@ -86,12 +84,6 @@ class Infusionsoft extends Inf
         // Check for existing client secret
         if (empty($client_secret)) {
             throw new \Infusionsoft\InfusionsoftException('Infusionsoft Client Secret not present', 1);
-        }
-        // Check for existing infusionsoft.token
-        if (cache()->store(config('infusionsoft.cache'))->has(config('infusionsoft.token_name'))) {
-            throw new \Infusionsoft\InfusionsoftException(
-                'Infusionsoft token file exists, please remove it to reauthorize with Infusionsoft'
-            );
         }
 
         $this->setClientId($client_id);
@@ -102,9 +94,9 @@ class Infusionsoft extends Inf
             $this->setDebug(true);
         }
         if (cache()->store($this->store)->has($this->token_name)) {
-            // If we aleady have a token, use it
             $token = unserialize(cache()->store($this->store)->get($this->token_name));
             $this->setToken(new \Infusionsoft\Token($token));
+            $this->checkIfExpired();
         } elseif (request()->has('code')) {
             // Request a new token if we have a code
             $this->requestAccessToken(request()->get('code'));
@@ -112,10 +104,6 @@ class Infusionsoft extends Inf
         } else {
             // Authorize the app to use the API
             return redirect($this->getAuthorizationUrl());
-            // throw new InfusionsoftException(sprintf(
-            //     'You must authorize your application here: %s',
-            //     $this->getAuthorizationUrl()
-            // ));
         }
     }
 
@@ -139,17 +127,25 @@ class Infusionsoft extends Inf
         return $this;
     }
 
+    /**
+     * Check if a token is expired
+     *
+     * @return  void
+     */
+    public function checkIfExpired()
+    {
+        $token = $this->getToken();
+        if ($token->endOfLife / 2 < time()) {
+            $token = $this->refreshAccessToken();
+            $this->setToken($token);
+            $this->storeAccessToken();
+        }
+    }
+
     public function storeAccessToken()
     {
         $token = $this->getToken();
         $extra = $token->getExtraInfo();
-
-        // Determine if expiring
-        $expired = ($token->getEndOfLife() - (time() * 2)) <= 0;
-        if ($expired) {
-            // Request new access token with refresh token
-            $token = $this->refreshAccessToken();
-        }
 
         cache()->store($this->store)->forever($this->token_name, serialize([
             'access_token' => $token->getAccessToken(),
