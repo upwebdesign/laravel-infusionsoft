@@ -37,7 +37,7 @@ return array(
     | from Infusionsoft
     |
     */
-    'cache' => env('INFUSIONSOFT_CACHE', 'local'),
+    'cache' => env('INFUSIONSOFT_CACHE', 'file'),
 
     /*
     |--------------------------------------------------------------------------
@@ -80,5 +80,42 @@ return array(
     | to after authorization.
     |
     */
-    'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI', 'infusionsoft/auth/callback')
+    'redirect_uri' => env('INFUSIONSOFT_REDIRECT_URI', 'infusionsoft/auth/callback'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allow for multiple Infusionsoft connections
+    |--------------------------------------------------------------------------
+     */
+    'multi' => env('INFUSIONSOFT_MULTI', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | A JSON array of accounts needing to be connected.
+    | Example Infusionsoft auth URL
+    | https://myproject.test/infusionsoft/account1/auth
+    | Example:
+    | [
+    |   {
+    |     "account1":
+    |     {
+    |       "client_id": "",
+    |       "client_secret": "",
+    |       "redirect_uri": "/infusionsoft/account1/auth/callback"
+    |     }
+    |   },
+    |   {
+    |     "account2":
+    |     {
+    |       "client_id": "",
+    |       "client_secret": "",
+    |       "redirect_uri": "/infusionsoft/account2/auth/callback"
+    |     }
+    |   }
+    | ]
+    | Example escaped:
+    | [{\"account1\": {\"client_id\": \"\",\"client_secret\": \"\",\"redirect_uri\": \"\/infusionsoft\/account1\/auth\/callback\"}},{\"account2\": {\"client_id\": \"\",\"client_secret\": \"\",\"redirect_uri\": \"\/infusionsoft\/account2\/auth\/callback\"}]
+    |--------------------------------------------------------------------------
+     */
+    'accounts' => env('INFUSIONSOFT_ACCOUNTS', [])
 );
