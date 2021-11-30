@@ -3,6 +3,8 @@
 
 # Laravel 6 & 7 Laravel Infusionsoft
 
+[Buy me a coffee](https://www.buymeacoffee.com/upwebdesign) :coffee:
+
 This package eases the oAuth flow for authentication and helps with token management.
 
 ## New in ^4.1
@@ -140,6 +142,8 @@ You must invoke the class directly:
 ```php
 $inf = new \Upwebdesign\Infusionsoft\Infusionsoft('account1');
 ```
+
+[Buy me a coffee](https://www.buymeacoffee.com/upwebdesign) :coffee:
 
 ## License
 
