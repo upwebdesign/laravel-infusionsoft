@@ -37,8 +37,6 @@ class Infusionsoft extends Inf
 
     /**
      * Create a new confide instance.
-     *
-     * @return void
      */
     public function __construct($account = false)
     {
@@ -52,9 +50,11 @@ class Infusionsoft extends Inf
         }
         if (config('infusionsoft.multi') && $is_multi) {
             $infusionsoft_accounts = json_decode(trim(stripslashes(config('infusionsoft.accounts'))), true);
-            $infusionsoft_account = current(array_filter($infusionsoft_accounts, function ($infusionsoft_account) use ($account) {
-                return $account === array_key_first($infusionsoft_account);
-            }));
+            $infusionsoft_account = current(
+                array_filter($infusionsoft_accounts, function ($infusionsoft_account) use ($account) {
+                    return $account === array_key_first($infusionsoft_account);
+                })
+            );
 
             if (!$infusionsoft_account) {
                 throw new \Infusionsoft\InfusionsoftException(
@@ -93,8 +93,16 @@ class Infusionsoft extends Inf
         if (config('infusionsoft.debug')) {
             $this->setDebug(true);
         }
-        if (cache()->store($this->store)->has($this->token_name)) {
-            $token = unserialize(cache()->store($this->store)->get($this->token_name));
+        if (
+            cache()
+                ->store($this->store)
+                ->has($this->token_name)
+        ) {
+            $token = unserialize(
+                cache()
+                    ->store($this->store)
+                    ->get($this->token_name)
+            );
             $this->setToken(new \Infusionsoft\Token($token));
             $this->checkIfExpired();
         } elseif (request()->has('code')) {
@@ -108,8 +116,10 @@ class Infusionsoft extends Inf
     }
 
     /**
+     * Set authorization code returned back from Infusionsoft
+     *
      * @param string $authorization_code
-     * @return string
+     * @return self
      */
     public function setAuthorizationCode($authorization_code)
     {
@@ -118,8 +128,10 @@ class Infusionsoft extends Inf
     }
 
     /**
+     * Set token name
+     *
      * @param string $name
-     * @return string
+     * @return self
      */
     public function setTokenName($name)
     {
@@ -135,24 +147,35 @@ class Infusionsoft extends Inf
     public function checkIfExpired()
     {
         $token = $this->getToken();
-        if ($token->endOfLife / 2 < time()) {
+        if ($token->isExpired()) {
             $token = $this->refreshAccessToken();
             $this->setToken($token);
             $this->storeAccessToken();
         }
     }
 
+    /**
+     * Store access token
+     *
+     * @return void
+     */
     public function storeAccessToken()
     {
         $token = $this->getToken();
         $extra = $token->getExtraInfo();
 
-        cache()->store($this->store)->forever($this->token_name, serialize([
-            'access_token' => $token->getAccessToken(),
-            'refresh_token' => $token->getRefreshToken(),
-            'expires_in' => $token->getEndOfLife(),
-            'token_type' => $extra['token_type'],
-            'scope' => $extra['scope'],
-        ]));
+        cache()
+            ->store($this->store)
+            ->forever(
+                $this->token_name,
+                serialize([
+                    'access_token' => $token->getAccessToken(),
+                    'refresh_token' => $token->getRefreshToken(),
+                    'expires_in' => 86400, // Infusionsoft tokens expire after 24 hours
+                    // 'expires_in' => $token->getEndOfLife(),
+                    'token_type' => $extra['token_type'],
+                    'scope' => $extra['scope'],
+                ])
+            );
     }
 }
