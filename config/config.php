@@ -5,7 +5,7 @@
  * @license MIT
  * @package Upwebdesign\Infusionsoft
  */
-return array(
+return [
     /*
     |--------------------------------------------------------------------------
     | Infusionsoft Debugging
@@ -117,5 +117,5 @@ return array(
     | [{\"account1\": {\"client_id\": \"\",\"client_secret\": \"\",\"redirect_uri\": \"\/infusionsoft\/account1\/auth\/callback\"}},{\"account2\": {\"client_id\": \"\",\"client_secret\": \"\",\"redirect_uri\": \"\/infusionsoft\/account2\/auth\/callback\"}]
     |--------------------------------------------------------------------------
      */
-    'accounts' => env('INFUSIONSOFT_ACCOUNTS', [])
-);
+    'accounts' => env('INFUSIONSOFT_ACCOUNTS', []),
+];

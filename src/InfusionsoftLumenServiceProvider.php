@@ -34,12 +34,15 @@ class InfusionsoftLumenServiceProvider extends ServiceProvider
      */
     private function registerRoutes()
     {
-        $this->app->group([
-            'prefix'=>'infusionsoft',
-            'namespace' => 'Upwebdesign\Infusionsoft\Http\Controllers'
-        ], function ($app) {
-            $app->get('auth/callback', 'InfusionsoftController@callback');
-            $app->get('auth', 'InfusionsoftController@auth');
-        });
+        $this->app->group(
+            [
+                'prefix' => 'infusionsoft',
+                'namespace' => 'Upwebdesign\Infusionsoft\Http\Controllers',
+            ],
+            function ($app) {
+                $app->get('auth/callback', 'InfusionsoftController@callback');
+                $app->get('auth', 'InfusionsoftController@auth');
+            }
+        );
     }
 }

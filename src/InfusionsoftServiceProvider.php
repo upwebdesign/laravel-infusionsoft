@@ -24,9 +24,12 @@ class InfusionsoftServiceProvider extends ServiceProvider
     {
         $this->registerRoutes();
         // Publish config files
-        $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('infusionsoft.php'),
-        ], 'config');
+        $this->publishes(
+            [
+                __DIR__ . '/../config/config.php' => config_path('infusionsoft.php'),
+            ],
+            'config'
+        );
     }
 
     /**
@@ -42,10 +45,7 @@ class InfusionsoftServiceProvider extends ServiceProvider
 
         $this->app->alias('infusionsoft', Infusionsoft::class);
 
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/config.php',
-            'infusionsoft'
-        );
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'infusionsoft');
     }
 
     /**
@@ -55,13 +55,16 @@ class InfusionsoftServiceProvider extends ServiceProvider
      */
     private function registerRoutes()
     {
-        Route::group([
-            'prefix'=>'infusionsoft',
-            'namespace' => 'Upwebdesign\Infusionsoft\Http\Controllers',
-            'middleware' => 'web',
-        ], function () {
-            $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        });
+        Route::group(
+            [
+                'prefix' => 'infusionsoft',
+                'namespace' => 'Upwebdesign\Infusionsoft\Http\Controllers',
+                'middleware' => 'web',
+            ],
+            function () {
+                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+            }
+        );
     }
 
     /**
@@ -71,6 +74,6 @@ class InfusionsoftServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array();
+        return [];
     }
 }

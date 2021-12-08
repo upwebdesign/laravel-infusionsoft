@@ -25,8 +25,7 @@ class InfusionsoftController extends Controller
     {
         $infusionsoft = config('infusionsoft.multi') ? new Infusionsoft($request->account) : new Infusionsoft();
 
-        $res = $infusionsoft->data('xml')
-            ->query('Contact', 1, 0, ['Id' => '*'], ['Id'], 'Id', true);
+        $res = $infusionsoft->data('xml')->query('Contact', 1, 0, ['Id' => '*'], ['Id'], 'Id', true);
         // If Infusionsoft returns an array, we have successfully connected to the serice
         if (!is_array($res)) {
             throw new Infusionsoft\InfusionsoftException(
