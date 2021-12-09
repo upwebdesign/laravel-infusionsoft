@@ -93,17 +93,17 @@ class Infusionsoft extends Inf
         if (config('infusionsoft.debug')) {
             $this->setDebug(true);
         }
-        if (
-            cache()
-                ->store($this->store)
-                ->has($this->token_name)
-        ) {
-            $token = unserialize(
-                cache()
-                    ->store($this->store)
-                    ->get($this->token_name)
-            );
-            $this->setToken(new \Infusionsoft\Token($token));
+
+        $token = cache()
+            ->store($this->store)
+            ->get($this->token_name, false);
+
+        if ($token) {
+            $token = new \Infusionsoft\Token(unserialize($token));
+            // Because the Token class adds time to end of life on instantiation,
+            // we need to remove time to get the real end of life
+            $token->setEndOfLife($token->getEndOfLife() - time());
+            $this->setToken($token);
             $this->checkIfExpired();
         } elseif (request()->has('code')) {
             // Request a new token if we have a code
@@ -147,6 +147,8 @@ class Infusionsoft extends Inf
     public function checkIfExpired()
     {
         $token = $this->getToken();
+        $token->setEndOfLife(time() - 1);
+
         if ($token->isExpired()) {
             $token = $this->refreshAccessToken();
             $this->setToken($token);
@@ -171,11 +173,30 @@ class Infusionsoft extends Inf
                 serialize([
                     'access_token' => $token->getAccessToken(),
                     'refresh_token' => $token->getRefreshToken(),
-                    'expires_in' => 86400, // Infusionsoft tokens expire after 24 hours
-                    // 'expires_in' => $token->getEndOfLife(),
+                    'expires_in' => $token->getEndOfLife(),
                     'token_type' => $extra['token_type'],
                     'scope' => $extra['scope'],
                 ])
             );
+    }
+
+    /**
+     * @return \Infusionsoft\Api\AffiliateService
+     */
+    public function affiliates($api = 'rest')
+    {
+        if ($api == 'xml') {
+            return $this->getApi('AffiliateService');
+        }
+
+        return $this->getRestApi('AffiliateService');
+    }
+
+    /**
+     * @return \Infusionsoft\Api\Rest\LocaleService
+     */
+    public function locales()
+    {
+        return $this->getRestApi('LocaleService');
     }
 }
