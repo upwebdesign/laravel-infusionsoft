@@ -88,6 +88,20 @@ For multiple account connections, the account keys will be appended to the `infu
 infusionsoft.token.account1
 ```
 
+## Refresh Access Tokens
+
+While this package helps with keeping access tokens refreshed using refresh tokens, there may be instances wehere this is not best practice. For example, in an environment where the application is load balanced between two or more servers. It is entirely possible during the refresh action, one call could use an expired or invalid access token. To remedy this, a scheduled command is preferred.
+
+```shell
+php artisan infusionsoft::token-refresh
+```
+
+Since Infusionsoft access tokens expire after 24 hours it is recommended to refresh the access tokens twice a day. A command is already registered to be used by your application. However, you will need to schedule it in your `Console/Kernel.php` file.
+
+```php
+$schedule->command('infusionsoft:token-refresh')->twiceDaily(5, 17);
+```
+
 # Lumen
 
 Register the service provider

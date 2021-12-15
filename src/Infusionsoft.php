@@ -104,7 +104,13 @@ class Infusionsoft extends Inf
             // we need to remove time to get the real end of life
             $token->setEndOfLife($token->getEndOfLife() - time());
             $this->setToken($token);
-            $this->checkIfExpired();
+            // Check if the access token is expired
+            if ($token->isExpired()) {
+                // Use refresh token to get new access token
+                $token = $this->refreshAccessToken();
+                $this->setToken($token);
+                $this->storeAccessToken();
+            }
         } elseif (request()->has('code')) {
             // Request a new token if we have a code
             $this->requestAccessToken(request()->get('code'));
@@ -137,23 +143,6 @@ class Infusionsoft extends Inf
     {
         $this->token_name = $name;
         return $this;
-    }
-
-    /**
-     * Check if a token is expired
-     *
-     * @return  void
-     */
-    public function checkIfExpired()
-    {
-        $token = $this->getToken();
-        $token->setEndOfLife(time() - 1);
-
-        if ($token->isExpired()) {
-            $token = $this->refreshAccessToken();
-            $this->setToken($token);
-            $this->storeAccessToken();
-        }
     }
 
     /**

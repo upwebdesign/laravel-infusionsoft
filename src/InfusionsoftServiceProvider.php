@@ -11,6 +11,7 @@ namespace Upwebdesign\Infusionsoft;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Upwebdesign\Infusionsoft\Console\Commands\TokenRefresh;
 
 class InfusionsoftServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,9 @@ class InfusionsoftServiceProvider extends ServiceProvider
             ],
             'config'
         );
+        if ($this->app->runningInConsole()) {
+            $this->commands([TokenRefresh::class]);
+        }
     }
 
     /**
