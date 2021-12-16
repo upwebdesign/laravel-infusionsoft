@@ -9,7 +9,7 @@ This package eases the oAuth flow for authentication and helps with token manage
 
 ## New in ^4.1
 
-Added ability to connect to multuple Infusionsoft accounts!
+Added ability to connect to multiple Infusionsoft accounts!
 
 ## Installation
 
@@ -52,7 +52,7 @@ INFUSIONSOFT_CACHE=file
 INFUSIONSOFT_REDIRECT_URI="/infusionsoft/auth/callback"
 ```
 
-To allow for multiple conected accounts, your .env will need these additional arguments. The first signifies there will be multuple connected Infusionsoft accounts, thesecond is a JSON encoded and escaped string with your API credentials. The array has identifying keys that will be explained later when making API calls.
+To allow for multiple connected accounts, your .env will need these additional arguments. The first signifies there will be multiple connected Infusionsoft accounts, the second is a JSON encoded and escaped string with your API credentials. The array has identifying keys that will be explained later when making API calls.
 
 ```
 INFUSIONSOFT_MULTI=true
@@ -90,7 +90,7 @@ infusionsoft.token.account1
 
 ## Refresh Access Tokens
 
-While this package helps with keeping access tokens refreshed using refresh tokens, there may be instances wehere this is not best practice. For example, in an environment where the application is load balanced between two or more servers. It is entirely possible during the refresh action, one call could use an expired or invalid access token. To remedy this, a scheduled command is preferred.
+While this package helps with keeping access tokens refreshed using refresh tokens, there may be instances where this is not best practice. For example, in an environment where the application is load balanced between two or more servers. It is entirely possible during the refresh action, one call could use an expired or invalid access token. To remedy this, a scheduled command is preferred.
 
 ```shell
 php artisan infusionsoft::token-refresh
