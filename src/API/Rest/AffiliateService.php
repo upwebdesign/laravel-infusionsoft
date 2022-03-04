@@ -1,13 +1,18 @@
-<?php namespace Infusionsoft\Api\Rest;
+<?php
 
-use Infusionsoft\Api\Rest\Traits\CannotDelete;
+namespace Upwebdesign\Infusionsoft\Api\Rest;
+
+use Infusionsoft\Infusionsoft;
+use Infusionsoft\Api\Rest\RestModel;
 use Infusionsoft\Api\Rest\Traits\CannotSave;
 use Infusionsoft\Api\Rest\Traits\CannotSync;
-use Infusionsoft\Infusionsoft;
+use Infusionsoft\Api\Rest\Traits\CannotDelete;
 
 class AffiliateService extends RestModel
 {
-    use CannotSync, CannotSave, CannotDelete;
+    use CannotSync;
+    use CannotSave;
+    use CannotDelete;
 
     public $full_url = 'https://api.infusionsoft.com/crm/rest/v1/affiliates';
 

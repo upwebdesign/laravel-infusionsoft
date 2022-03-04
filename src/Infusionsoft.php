@@ -11,6 +11,7 @@ namespace Upwebdesign\Infusionsoft;
  */
 
 use Infusionsoft\Infusionsoft as Inf;
+use Upwebdesign\Infusionsoft\Api\Rest\AffiliateService;
 
 class Infusionsoft extends Inf
 {
@@ -178,7 +179,7 @@ class Infusionsoft extends Inf
             return $this->getApi('AffiliateService');
         }
 
-        return $this->getRestApi('AffiliateService');
+        return $this->getRestApi(AffiliateService::class);
     }
 
     /**
@@ -186,6 +187,15 @@ class Infusionsoft extends Inf
      */
     public function locales()
     {
-        return $this->getRestApi('LocaleService');
+        return $this->getRestApi(LocaleService::class);
+    }
+
+    public function getRestApi($class)
+    {
+        if (!class_exists($class)) {
+            $class = '\Infusionsoft\Api\Rest\\' . $class;
+        }
+
+        return new $class($this);
     }
 }

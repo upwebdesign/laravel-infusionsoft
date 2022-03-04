@@ -1,19 +1,29 @@
-<?php namespace Infusionsoft\Api\Rest;
+<?php
 
-use Infusionsoft\Api\Rest\Traits\CannotCreate;
-use Infusionsoft\Api\Rest\Traits\CannotDelete;
+namespace Upwebdesign\Infusionsoft\Api\Rest;
+
+use Infusionsoft\Infusionsoft;
+use Infusionsoft\Api\Rest\RestModel;
 use Infusionsoft\Api\Rest\Traits\CannotFind;
 use Infusionsoft\Api\Rest\Traits\CannotList;
-use Infusionsoft\Api\Rest\Traits\CannotModel;
 use Infusionsoft\Api\Rest\Traits\CannotSave;
 use Infusionsoft\Api\Rest\Traits\CannotSync;
+use Infusionsoft\Api\Rest\Traits\CannotModel;
 use Infusionsoft\Api\Rest\Traits\CannotWhere;
-use Infusionsoft\Infusionsoft;
+use Infusionsoft\Api\Rest\Traits\CannotCreate;
+use Infusionsoft\Api\Rest\Traits\CannotDelete;
 
 class LocaleService extends RestModel
 {
-    use CannotSync, CannotSave, CannotDelete, CannotFind;
-    use CannotList, CannotModel, CannotWhere, CannotDelete, CannotCreate;
+    use CannotSync;
+    use CannotSave;
+    use CannotDelete;
+    use CannotFind;
+    use CannotList;
+    use CannotModel;
+    use CannotWhere;
+    use CannotDelete;
+    use CannotCreate;
 
     public $full_url = 'https://api.infusionsoft.com/crm/rest/v1/locales';
 
