@@ -2,6 +2,10 @@
 
 namespace Upwebdesign\Infusionsoft;
 
+use Infusionsoft\Infusionsoft as Inf;
+use Upwebdesign\Infusionsoft\Api\Rest\LocaleService;
+use Upwebdesign\Infusionsoft\Api\Rest\AffiliateService;
+
 /**
  * This class is the main entry point of Infusionsoft. Usually this the interaction
  * with this class will be done through the Infusionsoft Facade
@@ -9,9 +13,6 @@ namespace Upwebdesign\Infusionsoft;
  * @license MIT
  * @package Upwebdesign\Infusionsoft
  */
-
-use Infusionsoft\Infusionsoft as Inf;
-use Upwebdesign\Infusionsoft\Api\Rest\AffiliateService;
 
 class Infusionsoft extends Inf
 {
@@ -171,7 +172,7 @@ class Infusionsoft extends Inf
     }
 
     /**
-     * @return \Infusionsoft\Api\AffiliateService
+     * @return AffiliateService
      */
     public function affiliates($api = 'rest')
     {
@@ -183,7 +184,7 @@ class Infusionsoft extends Inf
     }
 
     /**
-     * @return \Infusionsoft\Api\Rest\LocaleService
+     * @return LocaleService
      */
     public function locales()
     {
