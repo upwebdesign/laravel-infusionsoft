@@ -199,4 +199,28 @@ class Infusionsoft extends Inf
 
         return new $class($this);
     }
+
+    /**
+     * Try an Infusionsoft API call a few times if it is failing
+     *
+     * @param callable $callback
+     * @param int $max_tries
+     * @param int $sleep
+     * @return mixed
+     */
+    public function try(callable $callback, int $max_tries = 5, int $sleep = 2)
+    {
+        $tries = 0;
+        do {
+            try {
+                return $callback($this, $tries);
+            } catch (\Throwable $th) {
+                sleep($sleep);
+                $tries++;
+                if ($tries === $max_tries) {
+                    throw $th;
+                }
+            }
+        } while ($tries < $max_tries);
+    }
 }

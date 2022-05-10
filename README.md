@@ -102,6 +102,41 @@ Since Infusionsoft access tokens expire after 24 hours it is recommended to refr
 $schedule->command('infusionsoft:token-refresh')->twiceDaily(5, 17);
 ```
 
+## Try
+
+There may be instances where Infusionsoft just fails an API call (happens often enough) and I've always struggled with constantly creating do/while or while loops all the time. In V4.2.0 I have introduces a `try` method to help alleviate this burden.
+
+The method:
+
+```php
+public function try(callable $callback, int $max_tries = 5, int $sleep = 2);
+```
+
+An example:
+
+```php
+$infusionsoft = new \Upwebdesign\Infusionsoft\Infusionsoft('inf1');
+
+$affiliate = collect([
+    'ContactId' => $contactId,
+    'Status' => 1,
+    'AffName' => 'Test Rat',
+    'AffCode' => 'testrat',
+]);
+
+$external_id = $infusionsoft->try(function () use ($infusionsoft, $affiliate) {
+    return $infusionsoft->data()->add('Affiliate', $affiliate->toArray());
+});
+```
+
+Laravel ships with a `retry` function, however, the `try` method sends the instance of the class and the number of tries back through the callback function in case they are needed. So another way it could be written:
+
+```php
+$external_id = $infusionsoft->try(function ($self, $try_count) use ($affiliate) {
+    return $self->data()->add('Affiliate', $affiliate->toArray());
+});
+```
+
 # Lumen
 
 Register the service provider
