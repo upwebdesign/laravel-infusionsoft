@@ -80,7 +80,7 @@ For multiple account connections, the redirect URI needs to follow this pattern:
 
 ## Token Name & Cache
 
-Token name default is `infusionsoft.token`, but can be overridden by INFUSIONSOFT_TOKEN_NAME. By default the cache store is set to `local`, but can be any cache store you have set up in your application and can be overridden by INFUSIONSOFT_CACHE. The default cache store is `file`, but can be any cache store you have set up.
+Token name default is `infusionsoft.token`, but can be overridden by INFUSIONSOFT_TOKEN_NAME. By default the cache store is set to `file`, but can be any cache store you have set up in your application and can be overridden by INFUSIONSOFT_CACHE.
 
 For multiple account connections, the account keys will be appended to the `infusionsoft.token` name, for example:
 
