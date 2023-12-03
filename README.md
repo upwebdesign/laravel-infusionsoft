@@ -1,7 +1,7 @@
 <a href="https://packagist.org/packages/upwebdesign/laravel-infusionsoft"><img src="https://poser.pugx.org/upwebdesign/laravel-infusionsoft/downloads.svg?format=flat" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/upwebdesign/laravel-infusionsoft"><img src="https://poser.pugx.org/upwebdesign/laravel-infusionsoft/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
 
-# Laravel 6 & 7 Laravel Infusionsoft
+# Laravel Infusionsoft
 
 [Buy me a coffee](https://www.buymeacoffee.com/upwebdesign) :coffee:
 
